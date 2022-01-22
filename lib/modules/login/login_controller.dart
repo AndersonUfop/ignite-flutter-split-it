@@ -1,12 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:split_it/modules/login/login_state.dart';
 import 'package:split_it/modules/login/models/user_model.dart';
 
 class loginController {
-  Future<void> googleSignIn() async {
-    UserModel? user;
-    LoginState state = LoginStateEmpty();
+  UserModel? user;
+  LoginState state = LoginStateEmpty();
+  VoidCallback onUpdate;
 
+  loginController({required this.onUpdate});
+
+  Future<void> googleSignIn() async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: [
         'email',
@@ -14,15 +18,16 @@ class loginController {
     );
     try {
       state = LoginStateLoading();
+      onUpdate();
       print(state);
       final account = await _googleSignIn.signIn();
       user = UserModel.google(account!);
-      state = LoginStateSuccess(user: user);
-      print(state);
-      print("Nome ${user.name}");
+      state = LoginStateSuccess(user: user!);
+      onUpdate();
+      print("Nome ${user?.name}");
     } catch (error) {
       state = LoginStateFailure(message: error.toString());
-      print(state);
+      onUpdate();
     }
   }
 }

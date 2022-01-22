@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:split_it/modules/login/login_controller.dart';
+import 'package:split_it/modules/login/login_state.dart';
 import 'package:split_it/modules/login/widgets/social_button.dart';
 import 'package:split_it/modules/theme/app_theme.dart';
 
@@ -11,7 +12,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controller = loginController();
+  late loginController controller;
+
+  @override
+  void initState() {
+    controller = loginController(onUpdate: () {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +55,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 32),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: SocialButtonWidget(
-                      imagePath: "assets/images/google.png",
-                      label: "Entrar com Google",
-                      onTap: () async {
-                        controller.googleSignIn();
-                      })),
+              if (controller.state is LoginStateLoading) ...[
+                CircularProgressIndicator(),
+              ] else if (controller.state is LoginStateFailure) ...[
+                Text((controller.state as LoginStateFailure).message)
+              ] else
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: SocialButtonWidget(
+                        imagePath: "assets/images/google.png",
+                        label: "Entrar com Google",
+                        onTap: () async {
+                          controller.googleSignIn();
+                        })),
               SizedBox(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
