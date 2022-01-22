@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:split_it/modules/login/login_controller.dart';
 import 'package:split_it/modules/login/widgets/social_button.dart';
 import 'package:split_it/modules/theme/app_theme.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = loginController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,17 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                       imagePath: "assets/images/google.png",
                       label: "Entrar com Google",
                       onTap: () async {
-                        GoogleSignIn _googleSignIn = GoogleSignIn(
-                          scopes: [
-                            'email',
-                          ],
-                        );
-                        try {
-                          final response = await _googleSignIn.signIn();
-                          print(response);
-                        } catch (error) {
-                          print(error);
-                        }
+                        controller.googleSignIn();
                       })),
               SizedBox(height: 12),
               Padding(
