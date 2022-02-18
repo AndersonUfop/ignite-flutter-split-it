@@ -7,6 +7,7 @@ abstract class AppColors {
   Color get title;
   Color get button;
   Color get infoCardTitle;
+  Color get infoCard;
   Color get infoCardSubtitle1;
   Color get infoCardSubtitle2;
   Color get border;
@@ -14,6 +15,11 @@ abstract class AppColors {
   Color get icon;
   Color get iconBackground1;
   Color get iconBackground2;
+  Color get eventTileTitle;
+  Color get eventTileSubtitle;
+  Color get eventTileMoney;
+  Color get eventTitlePeople;
+  Color get divider;
 }
 
 class AppColorsDefault implements AppColors {
@@ -58,4 +64,19 @@ class AppColorsDefault implements AppColors {
 
   @override
   Color get iconBackground2 => Color(0xFFFDECEF);
+
+  @override
+  Color get eventTileMoney => Color(0xFF666666);
+
+  @override
+  Color get eventTileSubtitle => Color(0xFF666666);
+
+  @override
+  Color get eventTileTitle => Color(0xFF455250);
+
+  @override
+  Color get eventTitlePeople => Color(0xFFA4B2AE);
+
+  @override
+  Color get divider => Color(0xFF666666);
 }
