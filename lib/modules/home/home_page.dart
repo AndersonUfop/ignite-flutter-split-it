@@ -16,11 +16,11 @@ class _HomePageState extends State<HomePage> {
     final UserModel user =
         ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
-        appBar: AppBarWidget(
-            user: user,
-            onTapAddButton: () {
-              print("CLICOU");
-            }),
-        body: InfoCardWidget());
+      appBar: AppBarWidget(
+          user: user,
+          onTapAddButton: () {
+            print("CLICOU");
+          }),
+    );
   }
 }
