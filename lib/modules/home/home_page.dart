@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:split_it/modules/home/home_controller.dart';
 import 'package:split_it/modules/home/widgets/app_bar_widget.dart';
-import 'package:split_it/modules/home/widgets/info_card_widget.dart';
 import 'package:split_it/modules/login/models/user_model.dart';
-import 'package:split_it/shared/models/event_model.dart';
 
 import 'widgets/event_tile_widget.dart';
 
@@ -14,20 +13,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final events = [
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: 100, people: 2),
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: 100, people: 2),
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: -50, people: 2),
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: 100, people: 2),
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: -33, people: 2),
-    EventModel(
-        created: DateTime.now(), title: "Churrasco", value: 100, people: 2),
-  ];
+  final controller = HomeController();
+
+  @override
+  void initState() {
+    controller.getEvents(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserModel user =
@@ -43,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ...events
+                  ...controller.events
                       .map(
                         (e) => EventTileWidget(model: e),
                       )
