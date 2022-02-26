@@ -24,6 +24,9 @@ dependencies:
   #Facilitar os testes
   mocktail: ^0.2.0
 
+  #Facilitar os loadings
+  shimmer: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:

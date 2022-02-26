@@ -3,6 +3,7 @@ import 'package:split_it/modules/home/home_controller.dart';
 import 'package:split_it/modules/home/home_state.dart';
 import 'package:split_it/modules/home/widgets/app_bar/app_bar_widget.dart';
 import 'package:split_it/modules/login/models/user_model.dart';
+import 'package:split_it/shared/models/event_model.dart';
 
 import 'widgets/event_tile_widget.dart';
 
@@ -41,7 +42,10 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   if (controller.state is HomeStateLoading) ...[
-                    CircularProgressIndicator(),
+                    ...List.generate(
+                        2,
+                        (index) => EventTileWidget(
+                            isLoading: true, model: EventModel()))
                   ] else if (controller.state is HomeStateSuccess) ...[
                     ...(controller.state as HomeStateSuccess)
                         .events
