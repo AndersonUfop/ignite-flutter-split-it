@@ -9,12 +9,16 @@ import 'login/login_page.dart';
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "Split.it", initialRoute: "/splash", routes: {
-      "/splash": (context) => SplashPage(),
-      "/login": (context) => LoginPage(),
-      "/error": (context) => ErrorPage(),
-      "/home": (context) => HomePage(),
-      "/create_split": (context) => CreateSplitPage()
-    });
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Split.it",
+        initialRoute: "/splash",
+        routes: {
+          "/splash": (context) => SplashPage(),
+          "/login": (context) => LoginPage(),
+          "/error": (context) => ErrorPage(),
+          "/home": (context) => HomePage(),
+          "/create_split": (context) => CreateSplitPage()
+        });
   }
 }
