@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:split_it/modules/create_split/steps/one/step_one_page.dart';
+import 'package:split_it/modules/create_split/widgets/bottom_stepper_bar.dart';
 import 'package:split_it/modules/create_split/widgets/create_split_app_bar.dart';
 import 'package:split_it/modules/create_split/widgets/stepper_next_button.dart';
 import 'package:split_it/modules/theme/app_theme.dart';
@@ -12,9 +14,7 @@ class CreateSplitPage extends StatefulWidget {
 
 class _CreateSplitPageState extends State<CreateSplitPage> {
   final pages = [
-    Container(
-      color: Colors.red,
-    ),
+    StepOnePage(),
     Container(
       color: Colors.blue,
     ),
@@ -41,37 +41,16 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppTheme.colors.backgroundPrimary,
-        appBar: CreateSplitAppBarWidget(
-          actualPage: index,
-          onTapBack: backPage,
-          size: pages.length,
-        ),
-        body: pages[index],
-        bottomNavigationBar: Container(
-            height: 72,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    StepperNextButtonWidget(label: "Cancelar", onTap: () {}),
-                    Container(
-                      width: 1,
-                      height: 72,
-                      color: AppTheme.colors.divider,
-                    ),
-                    StepperNextButtonWidget(
-                        label: "Continuar",
-                        onTap: () {
-                          nextPage();
-                        }),
-                  ],
-                ),
-              ],
-            )),
+    return Scaffold(
+      backgroundColor: AppTheme.colors.backgroundPrimary,
+      appBar: CreateSplitAppBarWidget(
+        actualPage: index,
+        onTapBack: backPage,
+        size: pages.length,
       ),
+      body: pages[index],
+      bottomNavigationBar:
+          BottomStepperBarWidget(onTapCancel: () {}, onTapNext: nextPage),
     );
   }
 }
