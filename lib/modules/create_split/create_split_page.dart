@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:split_it/modules/create_split/widgets/create_split_app_bar.dart';
+import 'package:split_it/modules/create_split/widgets/stepper_next_button.dart';
 import 'package:split_it/modules/theme/app_theme.dart';
 
 class CreateSplitPage extends StatefulWidget {
@@ -39,48 +41,37 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: AppTheme.colors.backgroundPrimary,
-        appBar: PreferredSize(
-            child: SafeArea(
-              top: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back,
-                          color: AppTheme.colors.backButton),
-                      onPressed: () {
-                        backPage();
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24),
-                    child: Text.rich(TextSpan(
-                        text: "0${index + 1}",
-                        style: AppTheme.textStyles.stepperIndicatorPrimary,
-                        children: [
-                          TextSpan(
-                              text: " - 0${pages.length}",
-                              style:
-                                  AppTheme.textStyles.stepperIndicatorSecondary)
-                        ])),
-                  )
-                ],
-              ),
-            ),
-            preferredSize: Size.fromHeight(60)),
+        appBar: CreateSplitAppBarWidget(
+          actualPage: index,
+          onTapBack: backPage,
+          size: pages.length,
+        ),
         body: pages[index],
-        floatingActionButton: index < 2
-            ? FloatingActionButton(
-                onPressed: () {
-                  nextPage();
-                },
-                child: Icon(Icons.add),
-              )
-            : Container());
+        bottomNavigationBar: Container(
+            height: 72,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    StepperNextButtonWidget(label: "Cancelar", onTap: () {}),
+                    Container(
+                      width: 1,
+                      height: 72,
+                      color: AppTheme.colors.divider,
+                    ),
+                    StepperNextButtonWidget(
+                        label: "Continuar",
+                        onTap: () {
+                          nextPage();
+                        }),
+                  ],
+                ),
+              ],
+            )),
+      ),
+    );
   }
 }
